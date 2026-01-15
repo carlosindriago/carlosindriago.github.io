@@ -2,109 +2,62 @@
 import { profile } from '../data/profile';
 ---
 
-<section
-  id="contact"
-  class="py-section-lg bg-dark-50 bg-pattern"
->
-  <div class="container mx-auto px-4">
+<section id="contact" class="py-32 relative">
+  <div class="container mx-auto px-4 relative z-10">
     <!-- Section Header -->
-    <div class="text-center mb-16 animate-fade-in-up">
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
         <span class="text-gradient">Contáctame</span>
       </h2>
-      <p class="text-dark-500 text-lg max-w-2xl mx-auto">
-        ¿Tienes un proyecto en mente o quieres colaborar? No dudes en contactarme, estaré encantado de ayudarte.
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+        ¿Tienes una idea en mente? Convirtámola en realidad juntos.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 max-w-6xl mx-auto">
       <!-- Contact Info -->
       <div class="space-y-8 animate-fade-in-left">
-        <div>
+        <div class="glass-panel p-8 rounded-2xl border border-white/5">
           <h3 class="text-2xl font-bold text-white mb-4">
-            Información de Contacto
+            Empecemos a conversar
           </h3>
-          <p class="text-dark-500 leading-relaxed">
-            Si deseas comunicarte conmigo puedes hacerlo mediante el formulario y te responderé lo más pronto posible.
+          <p class="text-gray-400 leading-relaxed mb-8">
+            Estoy disponible para nuevos proyectos freelance o oportunidades de carrera. ¡Envíame un mensaje y te responderé en breve!
           </p>
-        </div>
-
-        <div class="space-y-6">
-          <!-- Email -->
-          {profile.social.email && (
-            <a
-              href={`mailto:${profile.social.email}`}
-              class="flex items-center gap-4 p-4 bg-dark-100 rounded-xl border border-dark-200 hover:border-primary-400/50 transition-colors group"
-            >
-              <div class="w-12 h-12 rounded-lg bg-primary-400/10 flex items-center justify-center group-hover:bg-primary-600 transition-colors">
-                <svg
-                  class="w-6 h-6 text-primary-400 group-hover:text-white transition-colors"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
+          
+          <div class="space-y-6">
+             <!-- Email -->
+             {profile.social.email && (
+              <a
+                href={`mailto:${profile.social.email}`}
+                class="flex items-center gap-4 group"
+              >
+                <div class="w-12 h-12 rounded-full bg-primary-500/10 flex items-center justify-center group-hover:bg-primary-500 group-hover:shadow-glow-blue transition-all duration-300">
+                  <svg class="w-5 h-5 text-primary-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-400 group-hover:text-primary-300 transition-colors">Email</p>
+                  <p class="text-white font-medium">{profile.social.email}</p>
+                </div>
+              </a>
+            )}
+            
+            <!-- Location (Fake example based on context) -->
+             <div class="flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500 group-hover:shadow-glow-purple transition-all duration-300">
+                  <svg class="w-5 h-5 text-purple-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-sm text-gray-400 group-hover:text-purple-300 transition-colors">Ubicación</p>
+                  <p class="text-white font-medium">Remote / Worldwide</p>
+                </div>
               </div>
-              <div>
-                <p class="text-sm text-dark-600">Email</p>
-                <p class="text-white font-medium">{profile.social.email}</p>
-              </div>
-            </a>
-          )}
-
-          <!-- GitHub -->
-          {profile.social.github && (
-            <a
-              href={profile.social.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center gap-4 p-4 bg-dark-100 rounded-xl border border-dark-200 hover:border-primary-400/50 transition-colors group"
-            >
-              <div class="w-12 h-12 rounded-lg bg-primary-400/10 flex items-center justify-center group-hover:bg-primary-600 transition-colors">
-                <svg
-                  class="w-6 h-6 text-primary-400 group-hover:text-white transition-colors"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm text-dark-600">GitHub</p>
-                <p class="text-white font-medium">@carlosindriago</p>
-              </div>
-            </a>
-          )}
-
-          <!-- LinkedIn -->
-          {profile.social.linkedin && (
-            <a
-              href={profile.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center gap-4 p-4 bg-dark-100 rounded-xl border border-dark-200 hover:border-primary-400/50 transition-colors group"
-            >
-              <div class="w-12 h-12 rounded-lg bg-primary-400/10 flex items-center justify-center group-hover:bg-primary-600 transition-colors">
-                <svg
-                  class="w-6 h-6 text-primary-400 group-hover:text-white transition-colors"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm text-dark-600">LinkedIn</p>
-                <p class="text-white font-medium">Carlos Indriago</p>
-              </div>
-            </a>
-          )}
+          </div>
         </div>
       </div>
 
@@ -114,103 +67,64 @@ import { profile } from '../data/profile';
           action={`mailto:${profile.social.email}`}
           method="post"
           enctype="text/plain"
-          class="bg-dark-100 rounded-2xl p-8 border border-dark-200 space-y-6"
+          class="glass-panel p-8 rounded-2xl border border-white/5 space-y-6"
         >
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Nombre -->
             <div class="space-y-2">
-              <label for="nombre" class="text-sm font-medium text-white">
-                Nombre *
-              </label>
+              <label for="nombre" class="text-sm font-medium text-gray-300 ml-1">Nombre</label>
               <input
                 type="text"
                 id="nombre"
                 name="nombre"
                 required
-                class="w-full px-4 py-3 bg-dark-200 border border-dark-300 rounded-lg text-white placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all"
+                class="w-full px-4 py-3 bg-dark-900/50 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
                 placeholder="Tu nombre"
               />
             </div>
-
-            <!-- Apellido -->
             <div class="space-y-2">
-              <label for="apellido" class="text-sm font-medium text-white">
-                Apellido *
-              </label>
+              <label for="apellido" class="text-sm font-medium text-gray-300 ml-1">Apellido</label>
               <input
                 type="text"
                 id="apellido"
                 name="apellido"
                 required
-                class="w-full px-4 py-3 bg-dark-200 border border-dark-300 rounded-lg text-white placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all"
+                class="w-full px-4 py-3 bg-dark-900/50 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
                 placeholder="Tu apellido"
               />
             </div>
           </div>
 
-          <!-- Email -->
           <div class="space-y-2">
-            <label for="email" class="text-sm font-medium text-white">
-              Email *
-            </label>
+            <label for="email" class="text-sm font-medium text-gray-300 ml-1">Email</label>
             <input
               type="email"
               id="email"
               name="email"
               required
-              class="w-full px-4 py-3 bg-dark-200 border border-dark-300 rounded-lg text-white placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all"
+              class="w-full px-4 py-3 bg-dark-900/50 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all"
               placeholder="tu@email.com"
             />
           </div>
 
-          <!-- Asunto -->
           <div class="space-y-2">
-            <label for="asunto" class="text-sm font-medium text-white">
-              Asunto *
-            </label>
-            <input
-              type="text"
-              id="asunto"
-              name="asunto"
-              required
-              class="w-full px-4 py-3 bg-dark-200 border border-dark-300 rounded-lg text-white placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all"
-              placeholder="¿En qué puedo ayudarte?"
-            />
-          </div>
-
-          <!-- Mensaje -->
-          <div class="space-y-2">
-            <label for="mensaje" class="text-sm font-medium text-white">
-              Mensaje *
-            </label>
+            <label for="mensaje" class="text-sm font-medium text-gray-300 ml-1">Mensaje</label>
             <textarea
               id="mensaje"
               name="mensaje"
-              rows="5"
+              rows="4"
               required
-              class="w-full px-4 py-3 bg-dark-200 border border-dark-300 rounded-lg text-white placeholder-dark-500 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all resize-none"
-              placeholder="Escribe tu mensaje aquí..."
+              class="w-full px-4 py-3 bg-dark-900/50 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all resize-none"
+              placeholder="¿Cómo puedo ayudarte?"
             />
           </div>
 
-          <!-- Submit Button -->
           <button
             type="submit"
-            class="w-full px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2"
+            class="w-full px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 text-white font-bold rounded-xl shadow-lg hover:shadow-glow-blue transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2"
           >
-            Enviar Mensaje
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-              />
+            <span>Enviar Mensaje</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
           </button>
         </form>

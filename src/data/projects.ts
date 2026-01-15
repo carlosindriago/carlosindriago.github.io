@@ -17,7 +17,7 @@ export const projects: Project[] = [
     id: 'control-pacientes',
     title: 'Control de Pacientes',
     description: 'Sistema completo para la gestión de pacientes en centros médicos, con registro de historial, citas y tratamientos.',
-    image: '/img/hospital.png',
+    image: '/img/project-control-pacientes.png',
     technologies: [
       { name: 'JavaScript', color: 'yellow' },
       { name: 'PHP', color: 'blue' },
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     id: 'bolsa-empleo',
     title: 'Bolsa de Empleo',
     description: 'Plataforma de búsqueda y publicación de empleos con filtros avanzados y notificaciones en tiempo real.',
-    image: '/img/jobs.png',
+    image: '/img/project-bolsa-empleo.png',
     technologies: [
       { name: 'JavaScript', color: 'yellow' },
       { name: 'PHP', color: 'blue' },
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     id: 'cotizador-vehiculos',
     title: 'Cotizador de Alquiler de Vehículos',
     description: 'Sistema de cotización en tiempo real para alquiler de vehículos con diferentes tarifas y disponibilidad.',
-    image: '/img/car.png',
+    image: '/img/project-cotizador-vehiculos.png',
     technologies: [
       { name: 'JavaScript', color: 'yellow' },
       { name: 'PHP', color: 'blue' },
@@ -53,7 +53,7 @@ export const projects: Project[] = [
     id: 'sistema-almacen',
     title: 'Sistema de Almacén',
     description: 'Gestión completa de inventario con control de stock, alertas de bajo stock y reportes estadísticos.',
-    image: '/img/almacen.png',
+    image: '/img/project-sistema-almacen.png',
     technologies: [
       { name: 'JavaScript', color: 'yellow' },
       { name: 'PHP', color: 'blue' },

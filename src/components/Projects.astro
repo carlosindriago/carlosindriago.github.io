@@ -4,15 +4,19 @@ import { projects } from '../data/projects';
 
 <section
   id="projects"
-  class="py-section-lg bg-dark-50 bg-pattern"
+  class="py-section-lg relative"
 >
+  <!-- Background Elements -->
+  <div class="absolute inset-0 bg-gradient-to-b from-dark-950 via-dark-900 to-dark-950 -z-10"></div>
+  <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-500/20 to-transparent"></div>
+
   <div class="container mx-auto px-4">
     <!-- Section Header -->
     <div class="text-center mb-16 animate-fade-in-up">
       <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
         Mis <span class="text-gradient">Proyectos</span>
       </h2>
-      <p class="text-dark-500 text-lg max-w-2xl mx-auto">
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
         Aquí están algunos de los proyectos en los que he trabajado, utilizando diversas tecnologías y mejores prácticas.
       </p>
     </div>
@@ -21,38 +25,35 @@ import { projects } from '../data/projects';
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
       {projects.map((project, index) => (
         <article
-          class="bg-dark-100 rounded-xl overflow-hidden card-hover border border-dark-200 group animate-fade-in-up"
+          class="glass-panel rounded-2xl overflow-hidden group hover:border-primary-500/30 transition-all duration-300"
           style={`animation-delay: ${index * 150}ms`}
         >
           <!-- Project Image -->
-          <div class="relative h-48 overflow-hidden bg-dark-200">
+          <div class="relative h-56 overflow-hidden">
+            <div class="absolute inset-0 bg-dark-900/20 z-10 group-hover:bg-transparent transition-colors duration-300"></div>
             <img
               src={project.image}
               alt={project.title}
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-dark-100 to-transparent opacity-60" />
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/50 to-transparent opacity-90" />
           </div>
 
           <!-- Project Content -->
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">
+          <div class="p-6 relative z-20 -mt-12">
+            <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary-400 transition-colors">
               {project.title}
             </h3>
 
-            <p class="text-dark-500 text-sm leading-relaxed mb-4">
+            <p class="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3 group-hover:text-gray-300 transition-colors">
               {project.description}
             </p>
 
             <!-- Technologies -->
-            <div class="flex flex-wrap gap-2 mb-4">
+            <div class="flex flex-wrap gap-2 mb-6">
               {project.technologies.map((tech) => (
                 <span
-                  class={`px-3 py-1 text-xs font-semibold rounded-full bg-${
-                    tech.color
-                  }-400/10 text-${
-                    tech.color
-                  }-400 border border-${tech.color}-400/20`}
+                  class="px-3 py-1 text-xs font-medium rounded-full bg-white/5 border border-white/10 text-gray-300 backdrop-blur-sm"
                 >
                   {tech.name}
                 </span>
@@ -63,11 +64,11 @@ import { projects } from '../data/projects';
             {project.link && (
               <a
                 href={project.link}
-                class="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors group-hover:gap-3"
+                class="inline-flex items-center gap-2 text-primary-400 hover:text-white text-sm font-semibold transition-colors group/link"
               >
                 Ver Proyecto
                 <svg
-                  class="w-4 h-4"
+                  class="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -87,16 +88,16 @@ import { projects } from '../data/projects';
     </div>
 
     <!-- Call to Action -->
-    <div class="text-center mt-12">
+    <div class="text-center mt-16">
       <a
         href="https://github.com/carlosindriago?tab=repositories"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary-500/50 text-white font-semibold rounded-full backdrop-blur-md transition-all duration-300 group"
       >
-        Ver Todos los Proyectos en GitHub
+        <span>Ver Todos los Proyectos en GitHub</span>
         <svg
-          class="w-5 h-5"
+          class="w-5 h-5 text-gray-400 group-hover:text-white transition-colors"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

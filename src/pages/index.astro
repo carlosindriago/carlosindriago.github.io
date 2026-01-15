@@ -21,9 +21,9 @@ import { profile } from '../data/profile';
 <script>
   // Smooth scroll para navegación
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e: Event) {
+    anchor.addEventListener('click', function (e) {
       e.preventDefault();
-      const href = (this as HTMLAnchorElement).getAttribute('href');
+      const href = this.getAttribute('href');
       const target = document.querySelector(href || '');
       if (target) {
         target.scrollIntoView({
@@ -44,19 +44,35 @@ import { profile } from '../data/profile';
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('animate-fade-in-up');
+        // Add a class that triggers the animation if it was paused or hidden
+        entry.target.classList.remove('opacity-0');
+        entry.target.classList.add('animate-play'); 
+        // We actually just want to remove opacity-0 so the CSS animation (which runs by default) can be seen
+        // OR we can trigger it. 
+        // Given existing CSS: .animate-fade-up { opacity: 0; animation: ... }
+        // The animation runs on load. If we want scroll reveal, we need to pause it initially.
+        // But the CSS doesn't have 'paused'. 
+        // Let's rely on adding a class 'in-view' which we can style in global css if needed, 
+        // OR just rely on the fact that existing CSS runs immediately and we might miss it if scrolled down?
+        // Actually, the previous script was hiding them. 
+        // A better approach for now: JUST REMOVE THE HIDING LOGIC for simplicitly, 
+        // as the animations are 'appear' animations. 
+        // However, if we want them to play *when scrolled to*, we need to add the animation class then.
+        
+        // Let's implement a simple scroll reveal:
+        entry.target.style.animationPlayState = 'running';
         observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
   document.addEventListener('DOMContentLoaded', () => {
+    // Select all elements with animate- classes
     const animatedElements = document.querySelectorAll('[class*="animate-"]');
     animatedElements.forEach(el => {
-      if (!el.classList.contains('animate-fade-in-up')) {
-        (el as HTMLElement).style.opacity = '0';
-        observer.observe(el);
-      }
+      // Pause animation initially
+      (el as HTMLElement).style.animationPlayState = 'paused';
+      observer.observe(el);
     });
   });
 </script>
