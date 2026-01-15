@@ -1,0 +1,95 @@
+---
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+const navLinks: NavLink[] = [
+  { label: 'Inicio', href: '#hero' },
+  { label: 'Proyectos', href: '#projects' },
+  { label: 'Sobre Mí', href: '#about' },
+  { label: 'Contacto', href: '#contact' }
+];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-dark-50/95 backdrop-blur-md border-b border-dark-200">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#" class="flex items-center space-x-3 group">
+        <div class="relative w-10 h-10 rounded-lg bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center group-hover:shadow-glow transition-all duration-300">
+          <span class="text-white font-bold text-xl">C</span>
+        </div>
+        <span class="text-white font-semibold text-lg group-hover:text-primary-400 transition-colors">
+          Carlos Indriago
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-1">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-dark-600 hover:text-primary-400 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        class="md:hidden p-2 rounded-lg text-dark-600 hover:text-primary-400 hover:bg-dark-200 transition-colors"
+        aria-label="Abrir menú"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden pb-4"
+    >
+      <div class="flex flex-col space-y-2">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-dark-600 hover:text-primary-400 hover:bg-dark-200 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking on a link
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+</script>

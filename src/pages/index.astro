@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Projects from '../components/Projects.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import { profile } from '../data/profile';
+---
+
+<Layout
+  title={`${profile.name} - ${profile.tagline}`}
+  description={profile.description}
+  image="/img/icon.png"
+>
+  <Hero />
+  <Projects />
+  <About />
+  <Contact />
+</Layout>
+
+<script>
+  // Smooth scroll para navegación
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e: Event) {
+      e.preventDefault();
+      const href = (this as HTMLAnchorElement).getAttribute('href');
+      const target = document.querySelector(href || '');
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Animación de entrada al hacer scroll
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fade-in-up');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll('[class*="animate-"]');
+    animatedElements.forEach(el => {
+      if (!el.classList.contains('animate-fade-in-up')) {
+        (el as HTMLElement).style.opacity = '0';
+        observer.observe(el);
+      }
+    });
+  });
+</script>
