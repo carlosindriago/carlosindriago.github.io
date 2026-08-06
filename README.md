@@ -1,4 +1,4 @@
-# Carlos Indriago | Senior Software Engineer
+# Carlos Indriago | Software Engineer
 
 A performance-focused, modern portfolio website built with **Astro**, **TypeScript**, and **TailwindCSS**, showcasing production-grade software engineering projects, system architectures, and technical case studies.
 
