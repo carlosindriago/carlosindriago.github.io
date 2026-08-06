@@ -1,0 +1,80 @@
+---
+import { SITE } from '../data/site';
+---
+<section id="hero" class="min-h-[100svh] flex items-center pt-32 pb-24 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 w-full">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Text Area -->
+      <div class="relative z-10 mt-8 lg:mt-0">
+        <p class="text-accent-default font-mono text-xs md:text-sm font-semibold mb-4 md:mb-6 tracking-widest uppercase flex items-center gap-2 animate-fade-up">
+          <span class="w-4 h-px bg-accent-default"></span>
+          SOLUCIONADOR B2B · SAAS · BACKEND · CLOUD
+        </p>
+        
+        <h1 class="font-display font-800 text-white mb-4 animate-fade-up animate-delay-100 text-4xl sm:text-5xl lg:text-5xl xl:text-6xl leading-[1.1]">
+          <span class="block md:whitespace-nowrap">Carlos Indriago</span>
+          <span class="text-gradient block md:whitespace-nowrap text-2xl sm:text-3xl xl:text-3xl">Senior Software Engineer</span>
+        </h1>
+        
+        <p class="text-gray-300 text-base md:text-lg mb-8 animate-fade-up animate-delay-200 leading-relaxed" style="max-width: 48ch;">
+          Diseño y construyo plataformas SaaS, APIs críticas y arquitecturas backend seguras para productos que necesitan escalar con confianza.
+        </p>
+        
+        <div class="flex flex-wrap gap-4 mb-8 animate-fade-up animate-delay-300">
+          <a href="#contact" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors shadow-[0_0_25px_rgba(37,99,235,0.3)]">
+            Hablemos de arquitectura
+          </a>
+          <a href="#projects" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border border-white/10 text-gray-300 font-semibold hover:border-brand-500/30 hover:text-white hover:bg-white/5 transition-all">
+            Ver impacto técnico
+          </a>
+        </div>
+
+        <!-- Social links as circles -->
+        <div class="flex items-center gap-4 animate-fade-up animate-delay-400">
+          <a href={SITE.githubUrl} aria-label="GitHub de Carlos Indriago" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-colors">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          </a>
+          <a href={SITE.linkedinUrl} aria-label="LinkedIn de Carlos Indriago" target="_blank" rel="noopener noreferrer" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition-colors">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Visual Area -->
+      <div class="hidden lg:flex justify-center lg:justify-end relative z-10 animate-fade-in animate-delay-300 mt-8 lg:mt-0">
+        <div class="relative w-[340px] h-[340px] sm:w-[400px] sm:h-[400px] flex items-center justify-center group">
+          <!-- Background Glow/Radial Gradient behind the photo -->
+          <div class="absolute inset-0 bg-gradient-to-tr from-brand-600/20 to-accent-light/10 rounded-full blur-3xl opacity-60 group-hover:opacity-85 transition-opacity duration-700 pointer-events-none -z-10"></div>
+          
+          <!-- Subtle decorative border or ring -->
+          <div class="absolute inset-4 rounded-full border border-brand-500/10 group-hover:border-brand-500/30 transition-colors duration-700 pointer-events-none -z-10"></div>
+
+          <!-- Professional Photo masked to fade on the bottom -->
+          <picture>
+            <source srcset="/profile.webp" type="image/webp" />
+            <img
+              src="/profile.png"
+              width="800"
+              height="800"
+              alt="Carlos Indriago - Senior Software Engineer"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              class="w-full h-full object-cover object-top drop-shadow-2xl opacity-70 group-hover:opacity-95 transition-all duration-700 group-hover:scale-105 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]"
+            />
+          </picture>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 animate-fade-in animate-delay-500 hidden md:block">
+    <a href="#about" aria-label="Ir a sobre mí" class="flex flex-col items-center gap-1.5 text-gray-400 hover:text-brand-500 transition-colors duration-300">
+      <span class="text-[10px] uppercase tracking-widest font-mono font-semibold">Scroll</span>
+      <svg aria-hidden="true" class="w-5 h-5 animate-bounce-slow" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+      </svg>
+    </a>
+  </div>
+</section>

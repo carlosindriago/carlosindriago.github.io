@@ -1,0 +1,56 @@
+---
+const valueAreas = [
+  {
+    title: 'Arquitectura SaaS multi-tenant',
+    description: 'Diseño modelos de aislamiento, permisos y escalabilidad para productos que deben crecer sin comprometer seguridad ni mantenibilidad.',
+    impact: 'Menos deuda estructural, más claridad para escalar equipos y producto.',
+  },
+  {
+    title: 'Backend crítico y APIs confiables',
+    description: 'Construyo servicios, contratos de API y flujos de datos pensados para rendimiento, observabilidad y evolución a largo plazo.',
+    impact: 'Sistemas más estables, integraciones más limpias y menor fricción operativa.',
+  },
+  {
+    title: 'Seguridad desde el diseño',
+    description: 'Incorporo control de acceso, aislamiento de datos, auditoría y buenas prácticas OWASP desde la arquitectura, no como parche final.',
+    impact: 'Menor exposición a riesgos y mayor confianza para negocio, usuarios y stakeholders.',
+  },
+  {
+    title: 'Modernización sin detener operación',
+    description: 'Refactorizo sistemas legacy de forma progresiva, priorizando continuidad, entregas medibles y reducción real de complejidad.',
+    impact: 'Evolución técnica sin bloquear al equipo ni interrumpir el producto.',
+  },
+];
+---
+<section id="value" class="py-20 md:py-32 bg-surface relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="max-w-3xl mb-16">
+      <p class="text-accent-default font-mono text-sm font-semibold mb-3 tracking-widest uppercase">// valor estratégico</p>
+      <h2 class="font-display font-800 text-white mb-6" style="font-size: var(--text-2xl);">
+        Donde aporto mayor valor
+      </h2>
+      <p class="text-gray-300 text-lg leading-relaxed">
+        Ayudo a equipos que necesitan tomar decisiones técnicas importantes: escalar una plataforma, ordenar un backend complejo, reducir riesgos o transformar una idea en una arquitectura sostenible.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      {valueAreas.map((area, index) => (
+        <article class="group relative bg-background/60 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(37,99,235,0.08)]">
+          <span class="font-mono text-xs font-semibold text-brand-400 tracking-widest">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <h3 class="font-display font-800 text-white mt-4 mb-4 text-xl md:text-2xl leading-tight">
+            {area.title}
+          </h3>
+          <p class="text-gray-300 leading-relaxed mb-6 text-[15px]">
+            {area.description}
+          </p>
+          <p class="border-t border-white/10 pt-5 text-sm font-semibold text-brand-300 leading-relaxed">
+            {area.impact}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

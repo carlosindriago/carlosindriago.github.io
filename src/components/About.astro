@@ -1,0 +1,36 @@
+---
+---
+<section id="about" class="py-20 md:py-32 bg-background relative overflow-hidden">
+  <div class="bg-glow top-[20%] right-[-10%] opacity-30"></div>
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <!-- Text -->
+      <div>
+        <p class="text-accent-default font-mono text-sm font-semibold mb-3 tracking-widest uppercase">// sobre mí</p>
+        <h2 class="font-display font-800 text-white mb-6" style="font-size: var(--text-2xl);">
+          Software Engineer & Solucionador B2B
+        </h2>
+        <div class="space-y-4 text-gray-300 text-lg leading-relaxed">
+          <p>Soy Carlos Indriago, Senior Software Engineer. Con más de 10 años de trayectoria construyendo sistemas web que escalan, me especializo en desarrollar plataformas robustas y seguras.</p>
+          <p>Mi enfoque es netamente pragmático — entender el problema primero, diseñar la solución correcta después. Trabajo construyendo aplicaciones SaaS, APIs de alto rendimiento y automatizaciones usando lenguajes y herramientas modernas (Java, Python, Node.js, Laravel) y pilares sólidos (PostgreSQL, Docker, AWS).</p>
+          <p>Actualmente estoy disponible para roles estratégicos como Senior Backend o Full-Stack, donde pueda integrarme rápidamente a equipos remotos o híbridos, resolver deuda técnica y aportar mi experiencia para escalar el producto garantizando la continuidad del negocio.</p>
+        </div>
+      </div>
+
+      <!-- Stats / cards -->
+      <div class="grid grid-cols-2 gap-6">
+        {[
+          { number: '10+', label: 'Años de experiencia' },
+          { number: '50+', label: 'Proyectos entregados' },
+          { number: '5', label: 'Países clientes' },
+          { number: '∞',  label: 'Líneas de código' }
+        ].map(stat => (
+          <div class="bg-surface/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-brand-500/30 transition-colors shadow-xl">
+            <p class="font-display font-800 text-gradient mb-2" style="font-size: var(--text-2xl);">{stat.number}</p>
+            <p class="text-sm font-medium text-gray-400 uppercase tracking-wide">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

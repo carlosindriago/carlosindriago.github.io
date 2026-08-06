@@ -1,0 +1,40 @@
+---
+const principles = [
+  'Entender el dominio antes de elegir tecnología.',
+  'Preferir arquitecturas simples que el equipo pueda mantener.',
+  'Diseñar seguridad, observabilidad y operación desde el inicio.',
+  'Escalar de forma progresiva, evitando complejidad prematura.',
+  'Escribir código que facilite colaboración, revisión y evolución.',
+];
+---
+<section id="principles" class="py-20 md:py-32 bg-background relative overflow-hidden">
+  <div class="bg-glow top-[30%] right-[-20%] opacity-20"></div>
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-start">
+      <div>
+        <p class="text-accent-default font-mono text-sm font-semibold mb-3 tracking-widest uppercase">// criterio técnico</p>
+        <h2 class="font-display font-800 text-white mb-6" style="font-size: var(--text-2xl);">
+          Cómo tomo decisiones de arquitectura
+        </h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          Mi enfoque no parte de perseguir herramientas, sino de reducir incertidumbre: entender restricciones, priorizar riesgos y construir soluciones que sigan siendo claras cuando el producto crece.
+        </p>
+      </div>
+
+      <div class="bg-surface/70 backdrop-blur-xl rounded-2xl border border-white/10 p-6 md:p-8 shadow-2xl">
+        <ol class="space-y-4">
+          {principles.map((principle, index) => (
+            <li class="flex gap-4 rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+              <span class="shrink-0 font-mono text-sm font-bold text-brand-400">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <p class="text-gray-200 leading-relaxed">
+                {principle}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>

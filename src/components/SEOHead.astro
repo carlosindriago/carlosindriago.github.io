@@ -1,0 +1,81 @@
+---
+import { SITE } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  type?: 'website' | 'profile';
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  ogImage = SITE.ogImage,
+  type = 'website',
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, SITE.url).href;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Carlos Indriago',
+  alternateName: 'Carlos Indriago Rizales',
+  url: SITE.url,
+  image: SITE.avatarUrl,
+  jobTitle: 'Senior Software Engineer & Full-Stack Developer',
+  description: SITE.description,
+  knowsAbout: [
+    'Software Architecture', 'SaaS Architecture', 'Backend Architecture',
+    'Distributed Systems', 'API Design', 'Laravel Architecture',
+    'Node.js', 'PostgreSQL', 'AWS', 'Cloud Infrastructure',
+    'Multi-tenant Systems', 'Row-Level Security', 'Security Architecture',
+    'Legacy Modernization', 'Remote Engineering Teams',
+  ],
+  sameAs: [SITE.githubUrl, SITE.linkedinUrl],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Carlos Indriago',
+  url: SITE.url,
+  description: SITE.description,
+  author: { '@type': 'Person', name: 'Carlos Indriago' },
+};
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content="Carlos Indriago" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<link rel="canonical" href={canonicalUrl} />
+<meta name="keywords" content="Carlos Indriago, Carlos Indriago Rizales, Senior Software Engineer, Backend Engineer, SaaS Engineer, Laravel Engineer, Node.js Engineer, PostgreSQL, AWS, cloud infrastructure, multi-tenant SaaS, API architecture, security architecture, remote software engineer, LATAM software developer, Lima Peru" />
+
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Carlos Indriago | Senior Software Engineer" />
+<meta property="og:site_name" content="Carlos Indriago" />
+<meta property="og:locale" content={SITE.locale} />
+<meta property="profile:first_name" content="Carlos" />
+<meta property="profile:last_name" content="Indriago" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={SITE.twitterHandle} />
+<meta name="twitter:creator" content={SITE.twitterHandle} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />

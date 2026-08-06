@@ -1,0 +1,35 @@
+---
+import { skills } from '../data/skills';
+const categories = [
+  { key: 'backend',  label: 'Backend' },
+  { key: 'frontend', label: 'Frontend' },
+  { key: 'database', label: 'Bases de datos' },
+  { key: 'cloud',    label: 'Cloud & DevOps' },
+  { key: 'security', label: 'Seguridad' },
+  { key: 'ai',       label: 'Automatización & AI' },
+] as const;
+---
+<section id="skills" class="py-20 md:py-32 bg-surface relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <p class="text-accent-default font-mono text-sm font-semibold mb-3 tracking-widest uppercase">// habilidades</p>
+    <h2 class="font-display font-800 text-white mb-16" style="font-size: var(--text-2xl);">
+      Stack tecnológico
+    </h2>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {categories.map(cat => (
+        <div class="bg-background/50 backdrop-blur-md rounded-2xl p-8 border border-white/5 hover:border-white/10 transition-colors shadow-lg">
+          <h3 class="font-display font-700 text-sm text-brand-400 mb-6 uppercase tracking-widest flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-brand-500"></span>
+            {cat.label}
+          </h3>
+          <div class="flex flex-wrap gap-2.5">
+            {skills[cat.key].map(s => (
+              <span class="px-4 py-2 rounded-xl text-sm font-medium bg-white/5 border border-white/10 text-gray-300 hover:border-brand-500/30 hover:bg-brand-500/5 hover:text-white transition-all duration-300 cursor-default">{s}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

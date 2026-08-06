@@ -1,0 +1,286 @@
+---
+import { projects } from '../data/projects';
+---
+<section id="projects" class="py-20 md:py-32 bg-background relative overflow-hidden">
+  <div class="bg-glow top-[40%] left-[-20%] opacity-20"></div>
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <p class="text-accent-default font-mono text-sm font-semibold mb-3 tracking-widest uppercase">// proyectos</p>
+    <h2 class="font-display font-800 text-white mb-16" style="font-size: var(--text-2xl);">
+      Casos de impacto técnico
+    </h2>
+
+    <div class="flex flex-col gap-16 md:gap-24">
+      {projects.map((p, i) => {
+        return (
+          <article class={`group relative bg-surface/50 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:border-brand-500/30 transition-all duration-300 hover:shadow-[0_12px_40px_rgba(37,99,235,0.08)] hover:-translate-y-1 flex flex-col ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} gap-10 md:gap-16 md:items-center items-start`}>
+            <!-- Index -->
+            <span aria-hidden="true" class="font-display font-800 text-4xl text-white/10 absolute top-6 right-8 pointer-events-none">{String(i + 1).padStart(2, '0')}</span>
+
+            {p.image ? (
+              <>
+                <!-- Content Wrapper (Text Block) -->
+                <div class="w-full md:w-1/2 text-left flex flex-col">
+                  <h3 class="font-display font-800 text-white mb-6 pr-12" style="font-size: var(--text-lg);">{p.title}</h3>
+
+                  <div class="grid gap-4 mb-8">
+                    {[
+                      { label: 'Problema', text: p.problem },
+                      { label: 'Decisión técnica', text: p.decision },
+                      { label: 'Impacto', text: p.impact },
+                    ].map(item => (
+                      <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-4">
+                        <p class="font-mono text-[11px] font-bold uppercase tracking-widest text-brand-400 mb-2">{item.label}</p>
+                        <p class="text-gray-300 leading-relaxed text-[15px]">{item.text}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <!-- Links -->
+                  {p.repo && (
+                    <div class="flex gap-4 pt-6 border-t border-white/10">
+                      <a href={p.repo} aria-label={`Ver repositorio GitHub de ${p.title}`} target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-brand-400 hover:text-white transition-colors flex items-center gap-1.5 group-hover:text-brand-300">Ver Código en GitHub <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                    </div>
+                  )}
+                </div>
+
+                <!-- Image Wrapper (Image Block) -->
+                <div class="w-full md:w-1/2 flex flex-col items-center justify-center">
+                  <button
+                    type="button"
+                    aria-label={`Ver galería de ${p.title}`}
+                    data-gallery-src={p.image}
+                    data-gallery-alt={p.gallery && p.gallery.length > 0 ? p.gallery[0].alt : p.title}
+                    data-gallery-title={p.title}
+                    data-gallery-desc={p.gallery && p.gallery.length > 0 ? p.gallery[0].technicalDescription : 'Captura de pantalla principal.'}
+                    class="w-full text-left focus:outline-none focus:ring-2 focus:ring-brand-500 overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-2xl relative group-hover:border-brand-500/20 transition-all duration-300 block cursor-zoom-in"
+                  >
+                    <img
+                      src={p.image}
+                      alt={`Captura de pantalla de ${p.title}`}
+                      loading="lazy"
+                      width={p.imageWidth || 1024}
+                      height={p.imageHeight || 787}
+                      class="w-full h-auto object-contain rounded-xl shadow-inner-glow group-hover:scale-[1.02] transition-transform duration-500"
+                    />
+                  </button>
+
+                  {p.gallery && p.gallery.length > 0 && (
+                    <div class="thumbnails-grid flex gap-2 mt-4 flex-wrap w-full justify-start">
+                      {p.gallery.map(item => (
+                        <button
+                          type="button"
+                          aria-label={`Ver captura de ${item.alt} para ${p.title}`}
+                          data-gallery-src={item.src}
+                          data-gallery-alt={item.alt}
+                          data-gallery-title={p.title}
+                          data-gallery-desc={item.technicalDescription}
+                          class="focus:outline-none focus:ring-2 focus:ring-brand-500 rounded-lg overflow-hidden border border-white/10 hover:border-brand-500 transition-all shadow-md"
+                        >
+                          <img
+                            src={item.src}
+                            alt={item.alt}
+                            loading="lazy"
+                            class="w-24 h-16 object-cover"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <!-- Tags -->
+                  <div class="flex flex-wrap gap-2 mt-6 w-full justify-start">
+                    {p.tags.map(tag => (
+                      <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-gray-300 hover:border-brand-500/30 hover:bg-brand-500/5 hover:text-white transition-all duration-300 cursor-default">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div class="w-full text-left flex flex-col">
+                <h3 class="font-display font-800 text-white mb-6 pr-12" style="font-size: var(--text-lg);">{p.title}</h3>
+
+                <div class="grid gap-4 mb-8">
+                  {[
+                    { label: 'Problema', text: p.problem },
+                    { label: 'Decisión técnica', text: p.decision },
+                    { label: 'Impacto', text: p.impact },
+                  ].map(item => (
+                    <div class="rounded-2xl border border-white/5 bg-white/[0.03] p-4">
+                      <p class="font-mono text-[11px] font-bold uppercase tracking-widest text-brand-400 mb-2">{item.label}</p>
+                      <p class="text-gray-300 leading-relaxed text-[15px]">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2 mb-8">
+                  {p.tags.map(tag => (
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-gray-300 hover:border-brand-500/30 hover:bg-brand-500/5 hover:text-white transition-all duration-300 cursor-default">{tag}</span>
+                  ))}
+                </div>
+
+                <!-- Links -->
+                {p.repo && (
+                  <div class="flex gap-4 pt-6 border-t border-white/10">
+                    <a href={p.repo} aria-label={`Ver repositorio GitHub de ${p.title}`} target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-brand-400 hover:text-white transition-colors flex items-center gap-1.5 group-hover:text-brand-300">Ver Código en GitHub <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                  </div>
+                )}
+              </div>
+            )}
+          </article>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Global Modal -->
+    <div id="project-gallery-modal" class="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 hidden" role="dialog" aria-modal="true">
+      <div class="w-full max-w-7xl h-[90vh] bg-surface border border-white/10 rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl relative transition-all duration-300">
+        <!-- Close Button -->
+        <button id="modal-close" class="absolute top-4 right-4 text-white/70 hover:text-white bg-white/10 backdrop-blur-md hover:bg-white/20 border border-white/10 rounded-full p-2 z-50 transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-lg" aria-label="Cerrar modal">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- Image Area -->
+        <div class="w-full md:w-[60%] lg:w-[65%] h-[50vh] md:h-full bg-black/50 flex items-center justify-center relative p-4">
+          <!-- Prev Button -->
+          <button id="modal-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-white/10 backdrop-blur-md hover:bg-white/20 border border-white/10 rounded-full p-3 z-50 transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer hidden shadow-lg hover:scale-105" aria-label="Imagen anterior">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
+          </button>
+
+          <img id="modal-image" class="max-h-full w-auto object-contain shadow-2xl" src="" alt="" />
+
+          <!-- Next Button -->
+          <button id="modal-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-white/10 backdrop-blur-md hover:bg-white/20 border border-white/10 rounded-full p-3 z-50 transition-all focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer hidden shadow-lg hover:scale-105" aria-label="Siguiente imagen">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
+          </button>
+        </div>
+
+        <!-- Content Area -->
+        <div class="w-full md:w-[40%] lg:w-[35%] h-[40vh] md:h-full flex flex-col bg-surface/50 border-l border-white/5">
+          <div class="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
+            <h4 id="modal-title" class="text-lg md:text-xl font-bold text-white mb-4">Título del Proyecto</h4>
+            <p id="modal-alt" class="text-xs font-semibold text-brand-400 font-mono uppercase tracking-wider mb-4">Vista Detallada</p>
+            <div class="border-t border-white/5 my-4"></div>
+            <p id="modal-description" class="text-sm md:text-base text-gray-300 leading-relaxed font-light tracking-wide">Descripción técnica detallada.</p>
+          </div>
+          <div class="text-[11px] text-gray-500 font-mono p-6 md:px-10 md:py-6 border-t border-white/5 flex justify-between items-center w-full mt-auto">
+            <span>Usa ← o → para navegar</span>
+            <span>Presiona ESC para cerrar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<script>
+  const modal = document.getElementById('project-gallery-modal');
+  const modalImg = document.getElementById('modal-image') as HTMLImageElement;
+  const modalTitle = document.getElementById('modal-title');
+  const modalAlt = document.getElementById('modal-alt');
+  const modalDesc = document.getElementById('modal-description');
+  const modalClose = document.getElementById('modal-close');
+  const modalPrev = document.getElementById('modal-prev');
+  const modalNext = document.getElementById('modal-next');
+
+  let activeProjectThumbnails: HTMLElement[] = [];
+  let currentIndex = 0;
+
+  const openModal = (src: string, alt: string, title: string, desc: string) => {
+    if (!modal || !modalImg) return;
+    modalImg.src = src;
+    modalImg.alt = alt;
+    if (modalTitle) modalTitle.textContent = title;
+    if (modalAlt) modalAlt.textContent = alt;
+    if (modalDesc) modalDesc.textContent = desc;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    // Show/hide navigation controls based on gallery size
+    if (activeProjectThumbnails.length > 1) {
+      modalPrev?.classList.remove('hidden');
+      modalNext?.classList.remove('hidden');
+    } else {
+      modalPrev?.classList.add('hidden');
+      modalNext?.classList.add('hidden');
+    }
+  };
+
+  const closeModal = () => {
+    if (!modal) return;
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  };
+
+  const showNext = () => {
+    if (activeProjectThumbnails.length <= 1) return;
+    currentIndex = (currentIndex + 1) % activeProjectThumbnails.length;
+    activeProjectThumbnails[currentIndex].click();
+  };
+
+  const showPrev = () => {
+    if (activeProjectThumbnails.length <= 1) return;
+    currentIndex = (currentIndex - 1 + activeProjectThumbnails.length) % activeProjectThumbnails.length;
+    activeProjectThumbnails[currentIndex].click();
+  };
+
+  // Add click listeners to all gallery buttons
+  document.querySelectorAll('[data-gallery-src]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const src = target.getAttribute('data-gallery-src') || '';
+      const alt = target.getAttribute('data-gallery-alt') || '';
+      const title = target.getAttribute('data-gallery-title') || '';
+      const desc = target.getAttribute('data-gallery-desc') || '';
+
+      // Update active thumbnails reference group
+      let grid = target.closest('.thumbnails-grid');
+      if (!grid) {
+        // If the clicked element is the main image button (not inside .thumbnails-grid),
+        // we find the sibling .thumbnails-grid within the same image block wrapper.
+        const parent = target.closest('.w-full.md\\:w-1\\/2');
+        grid = parent ? parent.querySelector('.thumbnails-grid') : null;
+      }
+
+      if (grid) {
+        activeProjectThumbnails = Array.from(grid.querySelectorAll('[data-gallery-src]')) as HTMLElement[];
+        const index = activeProjectThumbnails.indexOf(target);
+        currentIndex = index !== -1 ? index : 0;
+      } else {
+        activeProjectThumbnails = [target];
+        currentIndex = 0;
+      }
+
+      openModal(src, alt, title, desc);
+    });
+  });
+
+  // Next/Prev click events
+  modalNext?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showNext();
+  });
+  
+  modalPrev?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showPrev();
+  });
+
+  // Close modal events
+  modalClose?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    } else if (e.key === 'ArrowRight' && !modal?.classList.contains('hidden')) {
+      showNext();
+    } else if (e.key === 'ArrowLeft' && !modal?.classList.contains('hidden')) {
+      showPrev();
+    }
+  });
+</script>
