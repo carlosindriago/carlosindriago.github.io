@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import SEOHead from '../components/SEOHead.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 
 interface Props {
   title?: string;
@@ -12,6 +13,26 @@ const { title, description } = Astro.props;
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
+  <!-- Google Consent Mode (Default Denied) -->
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
+    });
+    if(localStorage.getItem('cookie-consent') === 'granted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  </script>
   <!-- Google Tag Manager -->
   <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -31,6 +52,7 @@ const { title, description } = Astro.props;
     <div class="bg-glow bottom-[-10%] right-[-10%] opacity-50"></div>
   </div>
   <slot />
+  <CookieConsent />
 
   <script>
     const observer = new IntersectionObserver(
