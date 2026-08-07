@@ -73,7 +73,7 @@ const { title, description } = Astro.props;
             observer.unobserve(e.target);
           }
         }),
-        { threshold: 0.15, rootMargin: '0px 0px -10%' }
+        { threshold: 0, rootMargin: '0px 0px -10%' }
       );
       
       reveals.forEach(el => observer.observe(el));
