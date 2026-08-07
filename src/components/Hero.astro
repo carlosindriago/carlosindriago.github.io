@@ -1,30 +1,32 @@
 ---
 import { SITE } from '../data/site';
 ---
-<section id="hero" class="min-h-[100svh] flex items-center pt-32 pb-24 relative overflow-hidden">
+<section id="hero" class="min-h-[70svh] md:min-h-[100svh] flex items-center pt-32 pb-24 relative overflow-hidden">
   <div class="max-w-6xl mx-auto px-6 w-full">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Text Area -->
       <div class="relative z-10 mt-8 lg:mt-0">
-        <p class="text-accent-default font-mono text-xs md:text-sm font-semibold mb-4 md:mb-6 tracking-widest uppercase flex items-center gap-2 animate-fade-up">
-          <span class="w-4 h-px bg-accent-default"></span>
-          SOLUCIONADOR B2B · SAAS · BACKEND · CLOUD
-        </p>
+        <div class="text-accent-default font-mono text-[11px] sm:text-xs md:text-sm font-semibold mb-4 md:mb-6 tracking-widest uppercase flex flex-wrap items-center gap-x-2 gap-y-1 animate-fade-up">
+          <span class="w-4 h-px bg-accent-default shrink-0"></span>
+          <span>SOLUCIONADOR B2B · SAAS</span>
+          <span class="hidden sm:inline">·</span>
+          <span>BACKEND · CLOUD</span>
+        </div>
         
         <h1 class="font-display font-800 text-white mb-4 animate-fade-up animate-delay-100 text-4xl sm:text-5xl lg:text-5xl xl:text-6xl leading-[1.1]">
           <span class="block md:whitespace-nowrap">Carlos Indriago</span>
           <span class="text-gradient block md:whitespace-nowrap text-2xl sm:text-3xl xl:text-3xl">Software Engineer</span>
         </h1>
         
-        <p class="text-gray-300 text-base md:text-lg mb-8 animate-fade-up animate-delay-200 leading-relaxed" style="max-width: 48ch;">
+        <p class="text-gray-300 text-base md:text-lg mb-8 animate-fade-up animate-delay-200 leading-relaxed line-clamp-2 md:line-clamp-none" style="max-width: 48ch;">
           Diseño y construyo plataformas SaaS, APIs críticas y arquitecturas backend seguras para productos que necesitan escalar con confianza.
         </p>
         
-        <div class="flex flex-wrap gap-4 mb-8 animate-fade-up animate-delay-300">
-          <a href="#contact" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors shadow-[0_0_25px_rgba(37,99,235,0.3)]">
+        <div class="flex flex-col sm:flex-row gap-3 mb-8 animate-fade-up animate-delay-300 w-full sm:w-auto">
+          <a href="#contact" class="inline-flex justify-center items-center gap-2 px-8 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors shadow-[0_0_25px_rgba(37,99,235,0.3)] w-full sm:w-auto">
             Hablemos de arquitectura
           </a>
-          <a href="#projects" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border border-white/10 text-gray-300 font-semibold hover:border-brand-500/30 hover:text-white hover:bg-white/5 transition-all">
+          <a href="#projects" class="inline-flex justify-center items-center gap-2 px-8 py-3.5 rounded-xl border border-white/10 text-gray-300 font-semibold hover:border-brand-500/30 hover:text-white hover:bg-white/5 transition-all w-full sm:w-auto">
             Ver impacto técnico
           </a>
         </div>
@@ -69,7 +71,7 @@ import { SITE } from '../data/site';
   </div>
 
   <!-- Scroll Indicator -->
-  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 animate-fade-in animate-delay-500 hidden md:block">
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 animate-fade-in animate-delay-500 block">
     <a href="#about" aria-label="Ir a sobre mí" class="flex flex-col items-center gap-1.5 text-gray-400 hover:text-brand-500 transition-colors duration-300">
       <span class="text-[10px] uppercase tracking-widest font-mono font-semibold">Scroll</span>
       <svg aria-hidden="true" class="w-5 h-5 animate-bounce-slow" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
