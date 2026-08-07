@@ -83,29 +83,41 @@ import { SITE } from '../data/site';
 
 <script>
   // Subtle Parallax Effect for the Hero image
-  const heroSection = document.getElementById('hero');
-  const heroPhoto = document.getElementById('hero-photo');
+  function initParallax() {
+    const heroSection = document.getElementById('hero');
+    const heroPhoto = document.getElementById('hero-photo');
 
-  if (heroSection && heroPhoto && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    heroSection.addEventListener('mousemove', (e) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      
-      // Calculate cursor position as a percentage from center (-1 to 1)
-      const xPos = (clientX / innerWidth - 0.5) * 2;
-      const yPos = (clientY / innerHeight - 0.5) * 2;
-      
-      // Move photo slightly in opposite direction of mouse
-      const moveX = xPos * -15; // max 15px
-      const moveY = yPos * -15;
-      
-      heroPhoto.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
-      heroPhoto.style.transition = 'transform 0.1s ease-out';
-    });
+    if (heroSection && heroPhoto && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Usar mousemove en vez de animaciones CSS para el efecto
+      const handleMouseMove = (e: MouseEvent) => {
+        const { clientX, clientY } = e;
+        const { innerWidth, innerHeight } = window;
+        
+        // Calculate cursor position as a percentage from center (-1 to 1)
+        const xPos = (clientX / innerWidth - 0.5) * 2;
+        const yPos = (clientY / innerHeight - 0.5) * 2;
+        
+        // Move photo slightly in opposite direction of mouse
+        const moveX = xPos * -15; // max 15px
+        const moveY = yPos * -15;
+        
+        heroPhoto.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+        heroPhoto.style.transition = 'transform 0.1s ease-out';
+      };
 
-    heroSection.addEventListener('mouseleave', () => {
-      heroPhoto.style.transform = 'translate3d(0, 0, 0)';
-      heroPhoto.style.transition = 'transform 0.5s ease-out';
-    });
+      const handleMouseLeave = () => {
+        heroPhoto.style.transform = 'translate3d(0, 0, 0)';
+        heroPhoto.style.transition = 'transform 0.5s ease-out';
+      };
+
+      // Clean up previous listeners if they exist (important for SPA)
+      heroSection.removeEventListener('mousemove', handleMouseMove);
+      heroSection.removeEventListener('mouseleave', handleMouseLeave);
+      
+      heroSection.addEventListener('mousemove', handleMouseMove);
+      heroSection.addEventListener('mouseleave', handleMouseLeave);
+    }
   }
+
+  document.addEventListener('astro:page-load', initParallax);
 </script>

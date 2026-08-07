@@ -57,11 +57,29 @@ const { title, description } = Astro.props;
   <CookieConsent />
 
   <script>
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);} }),
-      { threshold: 0.08 }
-    );
-    document.querySelectorAll('.js-reveal').forEach(el => observer.observe(el));
+    function initScrollReveal() {
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reveals = document.querySelectorAll('.js-reveal');
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        reveals.forEach(el => el.classList.add('visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        }),
+        { threshold: 0.15, rootMargin: '0px 0px -10%' }
+      );
+      
+      reveals.forEach(el => observer.observe(el));
+    }
+
+    document.addEventListener('astro:page-load', initScrollReveal);
   </script>
 </body>
 </html>
