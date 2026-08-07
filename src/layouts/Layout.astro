@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SEOHead from '../components/SEOHead.astro';
 import CookieConsent from '../components/CookieConsent.astro';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -13,6 +14,7 @@ const { title, description } = Astro.props;
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
+  <ClientRouter />
   <!-- Google Consent Mode (Default Denied) -->
   <script is:inline>
     window.dataLayer = window.dataLayer || [];

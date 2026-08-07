@@ -52,7 +52,7 @@ import { SITE } from '../data/site';
           <div class="absolute inset-4 rounded-full border border-brand-500/10 group-hover:border-brand-500/30 transition-colors duration-700 pointer-events-none -z-10"></div>
 
           <!-- Professional Photo masked to fade on the bottom -->
-          <picture>
+          <picture id="hero-photo" class="w-full h-full block">
             <source srcset="/profile.webp" type="image/webp" />
             <img
               src="/profile.png"
@@ -80,3 +80,32 @@ import { SITE } from '../data/site';
     </a>
   </div>
 </section>
+
+<script>
+  // Subtle Parallax Effect for the Hero image
+  const heroSection = document.getElementById('hero');
+  const heroPhoto = document.getElementById('hero-photo');
+
+  if (heroSection && heroPhoto && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroSection.addEventListener('mousemove', (e) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      
+      // Calculate cursor position as a percentage from center (-1 to 1)
+      const xPos = (clientX / innerWidth - 0.5) * 2;
+      const yPos = (clientY / innerHeight - 0.5) * 2;
+      
+      // Move photo slightly in opposite direction of mouse
+      const moveX = xPos * -15; // max 15px
+      const moveY = yPos * -15;
+      
+      heroPhoto.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+      heroPhoto.style.transition = 'transform 0.1s ease-out';
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+      heroPhoto.style.transform = 'translate3d(0, 0, 0)';
+      heroPhoto.style.transition = 'transform 0.5s ease-out';
+    });
+  }
+</script>
