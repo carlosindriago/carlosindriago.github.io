@@ -33,53 +33,50 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const banner = document.getElementById('cookie-banner');
+  function initCookieBanner() {
+    const banner   = document.getElementById('cookie-banner');
     const btnAccept = document.getElementById('accept-cookies');
     const btnReject = document.getElementById('reject-cookies');
 
-    if (!banner || !btnAccept || !btnReject) return;
+    if (!banner || !btnAccept || !btnReject || banner.dataset.initialized === 'true') return;
+    banner.dataset.initialized = 'true';
 
-    // Obtener preferencia previa
     const consent = localStorage.getItem('cookie-consent');
-    
-    // Función global gtag provista en el <head>
+
     const w = window as any;
-    const gtag = w.gtag || function() { w.dataLayer = w.dataLayer || []; w.dataLayer.push(arguments); };
+    const gtag = w.gtag || function(...args: any[]) {
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push(args);
+    };
 
     if (!consent) {
-      // Mostrar banner con animación si no hay decisión
       banner.classList.remove('hidden');
-      // Delay ínfimo para aplicar la clase tras remover el hidden (CSS transitions)
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         banner.classList.remove('translate-y-8', 'opacity-0', 'pointer-events-none');
         banner.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
-      }, 50);
+      });
     }
 
     const hideBanner = () => {
       banner.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
       banner.classList.add('translate-y-8', 'opacity-0', 'pointer-events-none');
-      setTimeout(() => banner.classList.add('hidden'), 500); // Esperar que acabe la transición
+      setTimeout(() => banner.classList.add('hidden'), 500);
     };
 
     const updateConsent = (granted: boolean) => {
-      // 1. Guardar en Storage
       localStorage.setItem('cookie-consent', granted ? 'granted' : 'denied');
-      
-      // 2. Notificar a Google Tag Manager a través de Consent Mode
       gtag('consent', 'update', {
-        'analytics_storage': granted ? 'granted' : 'denied',
-        'ad_storage': granted ? 'granted' : 'denied',
-        'ad_user_data': granted ? 'granted' : 'denied',
-        'ad_personalization': granted ? 'granted' : 'denied'
+        'analytics_storage':    granted ? 'granted' : 'denied',
+        'ad_storage':           granted ? 'granted' : 'denied',
+        'ad_user_data':         granted ? 'granted' : 'denied',
+        'ad_personalization':   granted ? 'granted' : 'denied',
       });
-      
-      // 3. Ocultar banner
       hideBanner();
     };
 
     btnAccept.addEventListener('click', () => updateConsent(true));
     btnReject.addEventListener('click', () => updateConsent(false));
-  });
+  }
+
+  document.addEventListener('astro:page-load', initCookieBanner);
 </script>

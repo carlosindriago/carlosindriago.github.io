@@ -174,127 +174,104 @@ import { projects } from '../data/projects';
 </section>
 
 <script>
-  let modal: HTMLElement | null = null;
-  let modalImg: HTMLImageElement | null = null;
-  let modalTitle: HTMLElement | null = null;
-  let modalAlt: HTMLElement | null = null;
-  let modalDesc: HTMLElement | null = null;
-  let modalClose: HTMLElement | null = null;
-  let modalPrev: HTMLElement | null = null;
-  let modalNext: HTMLElement | null = null;
-
+  // --- State ---
   let activeProjectThumbnails: HTMLElement[] = [];
   let currentIndex = 0;
+  let controller: AbortController | null = null;
 
-  const openModal = (src: string, alt: string, title: string, desc: string) => {
+  // --- Modal helpers ---
+  const getModal = () => document.getElementById('project-gallery-modal');
+  const getImg   = () => document.getElementById('modal-image') as HTMLImageElement | null;
+
+  function openModal(src: string, alt: string, title: string, desc: string) {
+    const modal    = getModal();
+    const modalImg = getImg();
     if (!modal || !modalImg) return;
+
     modalImg.src = src;
     modalImg.alt = alt;
-    if (modalTitle) modalTitle.textContent = title;
-    if (modalAlt) modalAlt.textContent = alt;
-    if (modalDesc) modalDesc.textContent = desc;
+
+    const setEl = (id: string, text: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+    setEl('modal-title', title);
+    setEl('modal-alt', alt);
+    setEl('modal-description', desc);
+
+    const showNav = activeProjectThumbnails.length > 1;
+    document.getElementById('modal-prev')?.classList.toggle('hidden', !showNav);
+    document.getElementById('modal-next')?.classList.toggle('hidden', !showNav);
+
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
+  }
 
-    // Show/hide navigation controls based on gallery size
-    if (activeProjectThumbnails.length > 1) {
-      modalPrev?.classList.remove('hidden');
-      modalNext?.classList.remove('hidden');
-    } else {
-      modalPrev?.classList.add('hidden');
-      modalNext?.classList.add('hidden');
-    }
-  };
-
-  const closeModal = () => {
+  function closeModal() {
+    const modal = getModal();
     if (!modal) return;
     modal.classList.add('hidden');
     document.body.style.overflow = '';
-  };
+  }
 
-  const showNext = () => {
+  function navigate(dir: 1 | -1) {
     if (activeProjectThumbnails.length <= 1) return;
-    currentIndex = (currentIndex + 1) % activeProjectThumbnails.length;
+    currentIndex = (currentIndex + dir + activeProjectThumbnails.length) % activeProjectThumbnails.length;
     activeProjectThumbnails[currentIndex].click();
-  };
+  }
 
-  const showPrev = () => {
-    if (activeProjectThumbnails.length <= 1) return;
-    currentIndex = (currentIndex - 1 + activeProjectThumbnails.length) % activeProjectThumbnails.length;
-    activeProjectThumbnails[currentIndex].click();
-  };
-
-  const handleKeydown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      closeModal();
-    } else if (e.key === 'ArrowRight' && modal && !modal.classList.contains('hidden')) {
-      showNext();
-    } else if (e.key === 'ArrowLeft' && modal && !modal.classList.contains('hidden')) {
-      showPrev();
-    }
-  };
-
+  // --- Init (called on every astro:page-load) ---
   function initGallery() {
-    modal = document.getElementById('project-gallery-modal');
-    modalImg = document.getElementById('modal-image') as HTMLImageElement;
-    modalTitle = document.getElementById('modal-title');
-    modalAlt = document.getElementById('modal-alt');
-    modalDesc = document.getElementById('modal-description');
-    modalClose = document.getElementById('modal-close');
-    modalPrev = document.getElementById('modal-prev');
-    modalNext = document.getElementById('modal-next');
+    // Tear down all previous listeners atomically
+    controller?.abort();
+    controller = new AbortController();
+    const { signal } = controller;
 
-    // Clean up document listener for SPA navigations
-    document.removeEventListener('keydown', handleKeydown);
-    document.addEventListener('keydown', handleKeydown);
+    const section = document.getElementById('projects');
+    const modal   = getModal();
+    if (!section || !modal) return;
 
-    // Add click listeners to all gallery buttons
-    document.querySelectorAll('[data-gallery-src]').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const target = e.currentTarget as HTMLElement;
-        const src = target.getAttribute('data-gallery-src') || '';
-        const alt = target.getAttribute('data-gallery-alt') || '';
-        const title = target.getAttribute('data-gallery-title') || '';
-        const desc = target.getAttribute('data-gallery-desc') || '';
+    // Event delegation: one listener on the section covers all gallery buttons,
+    // even after Astro replaces the DOM during view transitions.
+    section.addEventListener('click', (e) => {
+      const target = (e.target as Element).closest<HTMLElement>('[data-gallery-src]');
+      if (!target) return;
 
-        // Update active thumbnails reference group
-        let grid = target.closest('.thumbnails-grid');
-        if (!grid) {
-          const parent = target.closest('.w-full.md\\:w-1\\/2');
-          grid = parent ? parent.querySelector('.thumbnails-grid') : null;
-        }
+      const src   = target.dataset.gallerySrc   ?? '';
+      const alt   = target.dataset.galleryAlt   ?? '';
+      const title = target.dataset.galleryTitle ?? '';
+      const desc  = target.dataset.galleryDesc  ?? '';
 
-        if (grid) {
-          activeProjectThumbnails = Array.from(grid.querySelectorAll('[data-gallery-src]')) as HTMLElement[];
-          const index = activeProjectThumbnails.indexOf(target);
-          currentIndex = index !== -1 ? index : 0;
-        } else {
-          activeProjectThumbnails = [target];
-          currentIndex = 0;
-        }
+      // Build thumbnail list from the nearest .thumbnails-grid sibling,
+      // or treat the main image button as a standalone gallery.
+      const grid = target.closest('.thumbnails-grid')
+        ?? target.closest('div')?.querySelector('.thumbnails-grid');
 
-        openModal(src, alt, title, desc);
-      });
-    });
-
-    // Next/Prev click events
-    modalNext?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      showNext();
-    });
-    
-    modalPrev?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      showPrev();
-    });
-
-    // Close modal events
-    modalClose?.addEventListener('click', closeModal);
-    modal?.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        closeModal();
+      if (grid) {
+        activeProjectThumbnails = Array.from(
+          grid.querySelectorAll<HTMLElement>('[data-gallery-src]')
+        );
+        currentIndex = Math.max(activeProjectThumbnails.indexOf(target), 0);
+      } else {
+        activeProjectThumbnails = [target];
+        currentIndex = 0;
       }
-    });
+
+      openModal(src, alt, title, desc);
+    }, { signal });
+
+    // Modal controls
+    document.getElementById('modal-close')?.addEventListener('click', closeModal, { signal });
+    document.getElementById('modal-next')?.addEventListener('click', (e) => { e.stopPropagation(); navigate(1); }, { signal });
+    document.getElementById('modal-prev')?.addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); }, { signal });
+
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); }, { signal });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+      else if (e.key === 'ArrowRight' && !modal.classList.contains('hidden')) navigate(1);
+      else if (e.key === 'ArrowLeft'  && !modal.classList.contains('hidden')) navigate(-1);
+    }, { signal });
   }
 
   document.addEventListener('astro:page-load', initGallery);
