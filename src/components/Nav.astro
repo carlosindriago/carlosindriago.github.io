@@ -1,34 +1,35 @@
 ---
 const links = [
-  { href: '#about',    label: 'Sobre mí' },
-  { href: '#projects', label: 'Proyectos' },
-  { href: '#value',    label: 'Valor' },
-  { href: '#principles', label: 'Criterio' },
+  { href: '#about',      label: 'Sobre mí'    },
+  { href: '#projects',   label: 'Proyectos'   },
+  { href: '#value',      label: 'Valor'       },
+  { href: '#principles', label: 'Criterio'    },
   { href: '#experience', label: 'Trayectoria' },
-  { href: '#skills',   label: 'Skills' },
+  { href: '#skills',     label: 'Skills'      },
 ];
 
-const sections = [
-  { id: 'hero',       label: 'Inicio' },
-  { id: 'about',      label: 'Sobre mí' },
-  { id: 'projects',   label: 'Proyectos' },
-  { id: 'value',      label: 'Valor' },
-  { id: 'principles', label: 'Criterio' },
+const sectionIds = [
+  { id: 'hero',       label: 'Inicio'      },
+  { id: 'about',      label: 'Sobre mí'    },
+  { id: 'projects',   label: 'Proyectos'   },
+  { id: 'value',      label: 'Valor'       },
+  { id: 'principles', label: 'Criterio'    },
   { id: 'experience', label: 'Trayectoria' },
-  { id: 'skills',     label: 'Skills' },
-  { id: 'contact',    label: 'Contacto' },
+  { id: 'skills',     label: 'Skills'      },
+  { id: 'contact',    label: 'Contacto'    },
 ];
 ---
-<header class="fixed top-4 md:top-6 inset-x-0 z-20 flex justify-center px-4">
-  <div class="relative w-full max-w-sm md:w-auto md:max-w-none bg-surface/80 md:bg-surface/60 backdrop-blur-xl border border-white/10 rounded-3xl md:rounded-full px-4 md:px-6 py-3 flex items-center justify-between gap-4 md:gap-12 shadow-2xl">
+
+<header id="site-header" aria-label="Navegación principal">
+  <div id="nav-pill">
     <!-- Logo -->
-    <a href="/" aria-label="Carlos Indriago" class="flex items-center gap-2 group">
+    <a href="/" aria-label="Carlos Indriago — inicio" class="flex items-center gap-2 shrink-0">
       <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-600 to-accent-light flex items-center justify-center shadow-lg shadow-brand-500/20">
         <span class="font-display font-800 text-sm text-white">CI</span>
       </div>
     </a>
 
-    <!-- Mobile current section -->
+    <!-- Mobile: current section label (centred) -->
     <p
       id="mobile-current-section"
       class="pointer-events-none absolute left-1/2 -translate-x-1/2 md:hidden max-w-[10rem] truncate text-center font-mono text-[11px] font-semibold uppercase tracking-widest text-white"
@@ -37,10 +38,10 @@ const sections = [
       Inicio
     </p>
 
-    <!-- Nav links -->
-    <nav class="hidden md:flex items-center gap-6">
+    <!-- Desktop nav links -->
+    <nav class="hidden md:flex items-center gap-6" aria-label="Secciones">
       {links.map(l => (
-        <a href={l.href} class="text-sm text-gray-300 hover:text-white transition-colors font-medium relative group">
+        <a href={l.href} class="nav-link text-sm text-gray-300 hover:text-white transition-colors font-medium relative group">
           {l.label}
           <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-light transition-all group-hover:w-full"></span>
         </a>
@@ -48,8 +49,10 @@ const sections = [
     </nav>
 
     <!-- Actions -->
-    <div class="flex items-center">
-      <a href="#contact" class="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-brand-600 hover:bg-brand-500 text-white text-sm font-medium transition-colors shadow-lg shadow-brand-500/25">Hablemos</a>
+    <div class="flex items-center shrink-0">
+      <a href="#contact" class="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-full bg-brand-600 hover:bg-brand-500 text-white text-sm font-medium transition-colors shadow-lg shadow-brand-500/25">
+        Hablemos
+      </a>
 
       <button
         id="mobile-menu-button"
@@ -60,18 +63,15 @@ const sections = [
         aria-expanded="false"
       >
         <svg class="menu-open h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round">
-          <path d="M4 7h16" />
-          <path d="M4 12h16" />
-          <path d="M4 17h16" />
+          <path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" />
         </svg>
         <svg class="menu-close hidden h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round">
-          <path d="M6 6l12 12" />
-          <path d="M18 6L6 18" />
+          <path d="M6 6l12 12" /><path d="M18 6L6 18" />
         </svg>
       </button>
     </div>
 
-    <!-- Mobile menu -->
+    <!-- Mobile menu dropdown -->
     <nav
       id="mobile-menu"
       class="absolute left-0 right-0 top-full mt-3 hidden overflow-hidden rounded-3xl border border-white/10 bg-surface/95 p-2 shadow-2xl backdrop-blur-xl md:hidden"
@@ -91,80 +91,183 @@ const sections = [
   </div>
 </header>
 
+<style>
+  /* ────────────────────────────────────────────────
+   * Floating → Sticky header animation
+   * All transitions run on CSS — JS only toggles .is-scrolled
+   * ──────────────────────────────────────────────── */
+  #site-header {
+    position: fixed;
+    top: 1rem;                   /* floating state */
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    padding: 0 1rem;
+    transition:
+      top      0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      padding  0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    /* pointer-events passthrough on the transparent header area */
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    #site-header { top: 1.5rem; }
+  }
+
+  /* Scrolled: stick to the very top edge */
+  #site-header.is-scrolled {
+    top: 0;
+    padding: 0;
+  }
+
+  /* ── Inner pill ── */
+  #nav-pill {
+    pointer-events: auto;       /* re-enable on the pill itself */
+    position: relative;
+    width: 100%;
+    max-width: 24rem;           /* mobile pill width */
+    background: rgba(24, 27, 32, 0.82);
+    backdrop-filter: blur(24px) saturate(1.6);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem;      /* pill on mobile */
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    transition:
+      max-width       0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      border-radius   0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      padding         0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      background      0.35s ease,
+      box-shadow      0.35s ease,
+      border-color    0.35s ease;
+  }
+
+  @media (min-width: 768px) {
+    #nav-pill {
+      width: auto;
+      max-width: none;
+      background: rgba(24, 27, 32, 0.65);
+      border-radius: 9999px;
+      padding: 0.75rem 1.5rem;
+      gap: 3rem;
+    }
+  }
+
+  /* Scrolled pill state */
+  #site-header.is-scrolled #nav-pill {
+    max-width: 100%;
+    border-radius: 0 0 1.25rem 1.25rem;
+    padding-top:    0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left:   1rem;
+    padding-right:  1rem;
+    background:     rgba(24, 27, 32, 0.96);
+    border-color:   rgba(255, 255, 255, 0.07);
+    box-shadow:     0 4px 24px rgba(0, 0, 0, 0.5),
+                    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  @media (min-width: 768px) {
+    #site-header.is-scrolled #nav-pill {
+      border-radius: 0 0 1.5rem 1.5rem;
+      padding: 0.5rem 2rem;
+    }
+  }
+</style>
+
 <script>
-  const menuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const currentSection = document.getElementById('mobile-current-section');
-  const sectionLabels = new Map([
-    ['hero', 'Inicio'],
-    ['about', 'Sobre mí'],
-    ['projects', 'Proyectos'],
-    ['value', 'Valor'],
-    ['principles', 'Criterio'],
-    ['experience', 'Trayectoria'],
-    ['skills', 'Skills'],
-    ['contact', 'Contacto'],
-  ]);
+  function initNav() {
+    const header      = document.getElementById('site-header');
+    const menuButton  = document.getElementById('mobile-menu-button');
+    const mobileMenu  = document.getElementById('mobile-menu');
+    const currentSect = document.getElementById('mobile-current-section');
 
-  if (menuButton && mobileMenu) {
-    const openIcon = menuButton.querySelector('.menu-open');
-    const closeIcon = menuButton.querySelector('.menu-close');
+    // ── Scroll-aware sticky header ──────────────────────────────
+    if (header) {
+      const THRESHOLD = 60; // px before the header "snaps" to top
+      let ticking = false;
 
-    const setMenuOpen = (isOpen) => {
-      menuButton.setAttribute('aria-expanded', String(isOpen));
-      menuButton.setAttribute(
-        'aria-label',
-        isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'
-      );
-      mobileMenu.classList.toggle('hidden', !isOpen);
-      openIcon?.classList.toggle('hidden', isOpen);
-      closeIcon?.classList.toggle('hidden', !isOpen);
-    };
-
-    menuButton.addEventListener('click', () => {
-      const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-      setMenuOpen(!isOpen);
-    });
-
-    mobileMenu.querySelectorAll('.mobile-menu-link').forEach((link) => {
-      link.addEventListener('click', () => setMenuOpen(false));
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') setMenuOpen(false);
-    });
-  }
-
-  if (currentSection) {
-    const sections = [...sectionLabels.keys()]
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
-
-    let ticking = false;
-
-    const updateCurrentSection = () => {
-      const marker = window.scrollY + window.innerHeight * 0.38;
-      let activeId = sections[0]?.id ?? 'hero';
-
-      for (const section of sections) {
-        if (section.offsetTop <= marker) {
-          activeId = section.id;
+      const onScroll = () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            header.classList.toggle('is-scrolled', window.scrollY > THRESHOLD);
+            ticking = false;
+          });
+          ticking = true;
         }
-      }
+      };
 
-      currentSection.textContent = sectionLabels.get(activeId) ?? 'Inicio';
-      ticking = false;
-    };
+      // Set initial state without waiting for a scroll event
+      header.classList.toggle('is-scrolled', window.scrollY > THRESHOLD);
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
 
-    const requestUpdate = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateCurrentSection);
-        ticking = true;
-      }
-    };
+    // ── Hamburger menu ──────────────────────────────────────────
+    if (menuButton && mobileMenu) {
+      const openIcon  = menuButton.querySelector('.menu-open');
+      const closeIcon = menuButton.querySelector('.menu-close');
 
-    updateCurrentSection();
-    window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate);
+      const setMenuOpen = (isOpen: boolean) => {
+        menuButton.setAttribute('aria-expanded', String(isOpen));
+        menuButton.setAttribute('aria-label', isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+        mobileMenu.classList.toggle('hidden', !isOpen);
+        openIcon?.classList.toggle('hidden', isOpen);
+        closeIcon?.classList.toggle('hidden', !isOpen);
+      };
+
+      menuButton.addEventListener('click', () => {
+        setMenuOpen(menuButton.getAttribute('aria-expanded') !== 'true');
+      });
+
+      mobileMenu.querySelectorAll('.mobile-menu-link').forEach(link => {
+        link.addEventListener('click', () => setMenuOpen(false));
+      });
+
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenuOpen(false); });
+    }
+
+    // ── Mobile section tracker ──────────────────────────────────
+    if (currentSect) {
+      const sectionLabels = new Map<string, string>([
+        ['hero',       'Inicio'      ],
+        ['about',      'Sobre mí'    ],
+        ['projects',   'Proyectos'   ],
+        ['value',      'Valor'       ],
+        ['principles', 'Criterio'    ],
+        ['experience', 'Trayectoria' ],
+        ['skills',     'Skills'      ],
+        ['contact',    'Contacto'    ],
+      ]);
+
+      const sections = [...sectionLabels.keys()]
+        .map(id => document.getElementById(id))
+        .filter(Boolean) as HTMLElement[];
+
+      let tick = false;
+
+      const update = () => {
+        const marker   = window.scrollY + window.innerHeight * 0.38;
+        let   activeId = sections[0]?.id ?? 'hero';
+        for (const s of sections) { if (s.offsetTop <= marker) activeId = s.id; }
+        currentSect.textContent = sectionLabels.get(activeId) ?? 'Inicio';
+        tick = false;
+      };
+
+      const requestUpdate = () => {
+        if (!tick) { requestAnimationFrame(update); tick = true; }
+      };
+
+      update();
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate);
+    }
   }
+
+  document.addEventListener('astro:page-load', initNav);
 </script>
