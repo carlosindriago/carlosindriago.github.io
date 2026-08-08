@@ -174,14 +174,14 @@ import { projects } from '../data/projects';
 </section>
 
 <script>
-  const modal = document.getElementById('project-gallery-modal');
-  const modalImg = document.getElementById('modal-image') as HTMLImageElement;
-  const modalTitle = document.getElementById('modal-title');
-  const modalAlt = document.getElementById('modal-alt');
-  const modalDesc = document.getElementById('modal-description');
-  const modalClose = document.getElementById('modal-close');
-  const modalPrev = document.getElementById('modal-prev');
-  const modalNext = document.getElementById('modal-next');
+  let modal: HTMLElement | null = null;
+  let modalImg: HTMLImageElement | null = null;
+  let modalTitle: HTMLElement | null = null;
+  let modalAlt: HTMLElement | null = null;
+  let modalDesc: HTMLElement | null = null;
+  let modalClose: HTMLElement | null = null;
+  let modalPrev: HTMLElement | null = null;
+  let modalNext: HTMLElement | null = null;
 
   let activeProjectThumbnails: HTMLElement[] = [];
   let currentIndex = 0;
@@ -224,63 +224,78 @@ import { projects } from '../data/projects';
     activeProjectThumbnails[currentIndex].click();
   };
 
-  // Add click listeners to all gallery buttons
-  document.querySelectorAll('[data-gallery-src]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const target = e.currentTarget as HTMLElement;
-      const src = target.getAttribute('data-gallery-src') || '';
-      const alt = target.getAttribute('data-gallery-alt') || '';
-      const title = target.getAttribute('data-gallery-title') || '';
-      const desc = target.getAttribute('data-gallery-desc') || '';
-
-      // Update active thumbnails reference group
-      let grid = target.closest('.thumbnails-grid');
-      if (!grid) {
-        // If the clicked element is the main image button (not inside .thumbnails-grid),
-        // we find the sibling .thumbnails-grid within the same image block wrapper.
-        const parent = target.closest('.w-full.md\\:w-1\\/2');
-        grid = parent ? parent.querySelector('.thumbnails-grid') : null;
-      }
-
-      if (grid) {
-        activeProjectThumbnails = Array.from(grid.querySelectorAll('[data-gallery-src]')) as HTMLElement[];
-        const index = activeProjectThumbnails.indexOf(target);
-        currentIndex = index !== -1 ? index : 0;
-      } else {
-        activeProjectThumbnails = [target];
-        currentIndex = 0;
-      }
-
-      openModal(src, alt, title, desc);
-    });
-  });
-
-  // Next/Prev click events
-  modalNext?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    showNext();
-  });
-  
-  modalPrev?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    showPrev();
-  });
-
-  // Close modal events
-  modalClose?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
+  const handleKeydown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       closeModal();
-    } else if (e.key === 'ArrowRight' && !modal?.classList.contains('hidden')) {
+    } else if (e.key === 'ArrowRight' && modal && !modal.classList.contains('hidden')) {
       showNext();
-    } else if (e.key === 'ArrowLeft' && !modal?.classList.contains('hidden')) {
+    } else if (e.key === 'ArrowLeft' && modal && !modal.classList.contains('hidden')) {
       showPrev();
     }
-  });
+  };
+
+  function initGallery() {
+    modal = document.getElementById('project-gallery-modal');
+    modalImg = document.getElementById('modal-image') as HTMLImageElement;
+    modalTitle = document.getElementById('modal-title');
+    modalAlt = document.getElementById('modal-alt');
+    modalDesc = document.getElementById('modal-description');
+    modalClose = document.getElementById('modal-close');
+    modalPrev = document.getElementById('modal-prev');
+    modalNext = document.getElementById('modal-next');
+
+    // Clean up document listener for SPA navigations
+    document.removeEventListener('keydown', handleKeydown);
+    document.addEventListener('keydown', handleKeydown);
+
+    // Add click listeners to all gallery buttons
+    document.querySelectorAll('[data-gallery-src]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const src = target.getAttribute('data-gallery-src') || '';
+        const alt = target.getAttribute('data-gallery-alt') || '';
+        const title = target.getAttribute('data-gallery-title') || '';
+        const desc = target.getAttribute('data-gallery-desc') || '';
+
+        // Update active thumbnails reference group
+        let grid = target.closest('.thumbnails-grid');
+        if (!grid) {
+          const parent = target.closest('.w-full.md\\:w-1\\/2');
+          grid = parent ? parent.querySelector('.thumbnails-grid') : null;
+        }
+
+        if (grid) {
+          activeProjectThumbnails = Array.from(grid.querySelectorAll('[data-gallery-src]')) as HTMLElement[];
+          const index = activeProjectThumbnails.indexOf(target);
+          currentIndex = index !== -1 ? index : 0;
+        } else {
+          activeProjectThumbnails = [target];
+          currentIndex = 0;
+        }
+
+        openModal(src, alt, title, desc);
+      });
+    });
+
+    // Next/Prev click events
+    modalNext?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showNext();
+    });
+    
+    modalPrev?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showPrev();
+    });
+
+    // Close modal events
+    modalClose?.addEventListener('click', closeModal);
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initGallery);
 </script>
