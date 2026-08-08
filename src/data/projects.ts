@@ -75,25 +75,30 @@ export const projects: Project[] = [
     impact: 'Aislamiento multi-tenant delegado directamente a la base de datos, mitigando de forma segura fugas de datos de salud en la capa de aplicación y cumpliendo con estándares de seguridad HIPAA.',
     tags: ['Go 1.25', 'Next.js', 'Hexagonal Architecture', 'AES-256 Crypto', 'PostgreSQL RLS'],
     featured: false,
-    image: '/projects/clinicalyx.webp',
+    image: '/projects/clinicalyx-dashboard.webp',
     imageWidth: 1024,
     imageHeight: 499,
     repo: 'https://github.com/carlosindriago/clinicalyx',
     gallery: [
       {
-        src: '/projects/clinicalyx.webp',
-        alt: 'SaaS Patient Portal',
-        technicalDescription: 'Vista del expediente clínico multi-tenant. Valida la visualización segura de datos de salud en cumplimiento estricto con los requerimientos de la ley HIPAA.'
+        src: '/projects/clinicalyx-dashboard.webp',
+        alt: 'SaaS Medical Suite Dashboard',
+        technicalDescription: 'Dashboard principal del médico (Tenant). Valida la carga inicial del sistema de agendamiento y el monitor de estado de seguridad que confirma la activación de Row-Level Security (RLS) en tiempo real para el aislamiento de datos.'
       },
       {
-        src: '/projects/clinicalyx-db.webp',
-        alt: 'Blind Indexing & AES-256',
-        technicalDescription: 'Panel de control de encriptación a nivel de campo. Valida la indexación determinista (Blind Indexing) para búsquedas rápidas en campos de datos cifrados.'
+        src: '/projects/clinicalyx-directory.webp',
+        alt: 'Directorio de Pacientes y Blind Indexing',
+        technicalDescription: 'Motor de búsqueda de pacientes. Demuestra la implementación de Blind Indexing (HMAC-SHA256): debido a que los datos personales (PII) están encriptados con AES-256 en reposo, las búsquedas se realizan comparando hashes exactos, garantizando seguridad absoluta sin sacrificar la operatividad del directorio.'
       },
       {
-        src: '/projects/clinicalyx-perf.webp',
-        alt: 'Infrastructure Performance',
-        technicalDescription: 'Métricas de infraestructura y monitoreo del servicio. Valida el aislamiento de conexiones y la integridad de datos transaccionales de PHI.'
+        src: '/projects/clinicalyx-patient-record.webp',
+        alt: 'Expediente Clínico y Datos Demográficos',
+        technicalDescription: 'Vista de la Historia Clínica Electrónica (EHR). Muestra la decodificación segura en memoria de los datos demográficos y el historial de consultas del paciente, asegurando que la información de salud protegida (PHI) nunca persista en texto plano en la base de datos.'
+      },
+      {
+        src: '/projects/clinicalyx-appointments.webp',
+        alt: 'Gestor de Citas Médicas',
+        technicalDescription: 'Módulo de agendamiento diario. Expone la estructura de datos relacional para el manejo de estados de citas (Confirmado, Pendiente, Cancelado) vinculados criptográficamente al ID del médico y del paciente, respetando el modelo de seguridad HIPAA.'
       }
     ]
   },
