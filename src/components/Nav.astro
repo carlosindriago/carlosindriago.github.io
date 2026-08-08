@@ -139,10 +139,13 @@ const sectionIds = [
     justify-content: space-between;
     gap: 1rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    transform: scale(1);
+    transform-origin: top center;  /* shrinks anchored to the top edge */
     transition:
       max-width       0.45s cubic-bezier(0.16, 1, 0.3, 1),
       border-radius   0.45s cubic-bezier(0.16, 1, 0.3, 1),
       padding         0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      transform       0.45s cubic-bezier(0.16, 1, 0.3, 1),
       background      0.35s ease,
       box-shadow      0.35s ease,
       border-color    0.35s ease;
@@ -171,6 +174,7 @@ const sectionIds = [
     border-color:   rgba(255, 255, 255, 0.07);
     box-shadow:     0 4px 24px rgba(0, 0, 0, 0.5),
                     inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+    transform: scale(0.8);     /* 20% smaller, anchored at top center */
   }
 
   @media (min-width: 768px) {
